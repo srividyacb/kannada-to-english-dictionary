@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+
+<!-- #BeginTemplate "../master.dwt" -->
+
+<head>
+<STYLE TYPE="text/css">
+TD, TH {text-align:center}
+</STYLE>
+<script type="text/javascript" src="/kditor/com.kditor.Kditor-xs.nocache.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- #BeginEditable "doctitle" -->
+<title>Calendar</title>
+<!-- #EndEditable -->
+<link rel="stylesheet" type="text/css" title="CSS" href="../styles/style2.css" media="screen" />
+<style type="text/css">
+.style1 {
+	color: #0000FF;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Begin Container -->
+<div id="container">
+	<!-- Begin Masthead -->
+	<div id="masthead">
+		<img src="../images/kn.jpg" height="104" width="140" alt="" /><p class="style1">
+		<strong>&#3221;&#3240;&#3277;&#3240;&#3233; &#3254;&#3244;&#3277;&#3238;&#3221;&#3275;&#3254;</strong></p>
+	</div>
+	<!-- End Masthead -->
+	<!-- Begin Navigation -->
+	<div id="navigation">
+		<ul>
+			<li><a href="../default.htm">ಮುಖಪುಟ</a></li>
+			<li><a href="../about/about.htm">ಕಿಟ್ಟೆಲ್</a></li>
+			
+			<li><a href="calendar.htm">ಕ್ಯಾಲಂಡರ್</a></li>
+			<li><a href="../contact/contact.htm">ನಮ್ಮ ಬಗ್ಗೆ</a></li>
+		</ul>
+	</div>
+	<!-- End Navigation -->
+	<!-- Begin Page Content -->
+	<div id="page_content">
+		<!-- Begin Left Column -->
+		<div id="column_l" style="left: 0px; top: 0px; width: 1184px">
+			<!-- #BeginEditable "content" -->
+			
+
+</body>
+<script type="text/javascript">
+function displayDate()
+{
+document.getElementById("demo").innerHTML=Date();
+}
+</script>
+</head>
+
+		<body>
+
+
+<p> <h2 style="text-align:center;"> <u> calendar </u> </h2> </p>
+
+<body>
+</body>
+
+<STYLE TYPE="text/css">
+TD, TH {text-align:center}
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript">
+
+function getFirstDay(theYear, theMonth){
+    var firstDate = new Date(theYear,theMonth,1)
+    return firstDate.getDay()
+}
+
+function getMonthLen(theYear, theMonth) {
+    var oneDay = 1000 * 60 * 60 * 24
+    var thisMonth = new Date(theYear, theMonth, 1)
+    var nextMonth = new Date(theYear, theMonth + 1, 1)
+    var len = Math.ceil((nextMonth.getTime() - 
+        thisMonth.getTime())/oneDay)
+    return len
+}
+
+var theMonths = ["January","February","March","April","May","June","July","August",
+"September","October","November","December"]
+
+function getObject(obj) {
+    var theObj
+    if (document.all) {
+        if (typeof obj == "string") {
+            return document.all(obj)
+        } else {
+            return obj.style
+        }
+    }
+    if (document.getElementById) {
+        if (typeof obj == "string") {
+            return document.getElementById(obj)
+        } else {
+            return obj.style
+        }
+    }
+    return null
+}
+
+
+function populateTable(form) {
+    var theMonth = form.chooseMonth.selectedIndex
+    var theYear = parseInt(form.chooseYear.options[form.chooseYear.selectedIndex].text)
+
+    var firstDay = getFirstDay(theYear, theMonth)
+    var howMany = getMonthLen(theYear, theMonth)
+    
+  
+    getObject("tableHeader").innerHTML = theMonths[theMonth] + 
+    " " + theYear
+    
+    
+    var dayCounter = 1
+    var TBody = getObject("tableBody")
+
+    while (TBody.rows.length > 0) {
+        TBody.deleteRow(0)
+    }
+    var newR, newC
+    var done=false
+    while (!done) {
+      
+        newR = TBody.insertRow(TBody.rows.length)
+        for (var i = 0; i < 7; i++) {
+          
+            newC = newR.insertCell(newR.cells.length)
+            if (TBody.rows.length == 1 && i < firstDay) {
+            
+                newC.innerHTML = ""    
+                continue
+            }
+            if (dayCounter == howMany) {
+           
+                done = true
+            }
+            newC.innerHTML = (dayCounter <= howMany) ? 
+                dayCounter++ : ""
+        }
+        
+    }
+}
+
+
+
+function fillYears() {
+    var today = new Date()
+    var thisYear = today.getFullYear()
+    var yearChooser = document.dateChooser.chooseYear
+    for (i = thisYear; i < thisYear + 5; i++) {
+        yearChooser.options[yearChooser.options.length] = new Option(i, i)
+    }
+    setCurrMonth(today)
+}
+
+function setCurrMonth(today) {
+    document.dateChooser.chooseMonth.selectedIndex = today.getMonth()
+}
+</SCRIPT>
+
+
+<body onLoad="fillYears(); populateTable(document.dateChooser)">
+
+<TABLE ID="calendarTable" BORDER=2 ALIGN="center">
+<TR>
+    <TH ID="tableHeader" COLSPAN=7></TH>
+</TR>
+<TR><TH>Sun</TH><TH>Mon</TH><TH>Tue</TH><TH>Wed</TH>
+<TH>Thu</TH><TH>Fri</TH><TH>Sat</TH></TR>
+<TBODY ID="tableBody"></TBODY>
+<TR>
+    <TD COLSPAN=7>
+    <P>
+    <FORM NAME="dateChooser">
+        <SELECT NAME="chooseMonth" 
+        onChange="populateTable(this.form)">
+            <OPTION SELECTED>January<OPTION>February
+            <OPTION>March<OPTION>April<OPTION>May
+            <OPTION>June<OPTION>July<OPTION>August
+            <OPTION>September<OPTION>October
+            <OPTION>November<OPTION>December
+    </SELECT>
+    <SELECT NAME="chooseYear" onChange="populateTable(this.form)">
+    </SELECT>
+    </FORM>
+    </P></TD>
+</TR>
+</TABLE>
+
+<br/>
+
+
+
+
+			<!-- #EndEditable --></div>
+		<!-- End Left Column -->
+		<!-- Begin Right Column -->
+		<div id="column_r">
+			<!-- #BeginEditable "sidebar" -->
+			<h4><img src="../images/img3.jpg" width="326" height="206" alt=""/></h4>
+			<!-- #EndEditable --></div>
+		<!-- End Right Column --></div>
+	<!-- End Page Content -->
+	<!-- Begin Footer -->
+	<div id="footer">
+		<p><a href="../default.htm">ಮುಖಪುಟ</a> | <a href="../about/about.htm">ಕಿಟ್ಟೆಲ್</a> |
+		<a href="calendar.htm">ಕ್ಯಾಲಂಡರ್</a> |
+		<a href="../contact/contact.htm">ನಮ್ಮ ಬಗ್ಗೆ</a> |
+		<a href="../photo_gallery/photo_gallery.htm">ಚಿತ್ರ ವೇದಿಕೆ</a>
+		
+	</div>
+	<!-- End Footer --></div>
+<!-- End Container -->
+
+</body>
+
+<!-- #EndTemplate -->
+
+</html>

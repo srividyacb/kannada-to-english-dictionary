@@ -1,0 +1,63 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Kditor</title>
+
+<link href="./css/kditor.css" rel=stylesheet type="text/css">
+
+<script src='transliteration.js'></script>
+
+<script src='./js/kditor-demo.js'></script>
+<script>
+	function init()
+	{
+		initialize();
+		setEditor('pte');
+		setTimeout(function(){document.getElementById('pte').focus();}, 10);
+	}
+</script>
+
+</head>
+
+<body onload="init();">
+<center>
+<div id="layout">
+<div id="header"><span class="appname">Kditor</span></div>
+<div id="subheader"><span id="pagename" class="pagename"></span></div>
+<div id="content">
+<div id="selector"><span>Select Language: </span><select>
+	<option value="">Off (English)</option>
+	<option value="kannada" selected="selected">Kannada</option>
+	<option value="devanagari">Devanagari (Beta)</option>
+</select></div>
+<span id="note"><span class="italic">Press </span><span
+	class="bold">Ctrl+g</span><span class="italic"> to toggle (turn
+on/off) transliteration</span></span>
+<div id="editor">
+	<iframe id="rte" transliteration=""></iframe>
+	<textarea id="pte" transliteration=""></textarea>
+	<input id="ptb" transliteration=""></input></div>
+</div>
+<div id="menu">
+<ul>
+	<li id="menu-rte"><a href="#">RichText Editor</a></li>
+	<li id="menu-pte"><a href="#">PlainText Editor</a></li>
+	<li id="menu-ptb"><a href="#">PlainText Box</a></li>
+</ul>
+</div>
+<div id="footer">For the source and other resources, please visit
+the project home page: <a href="http://kditor.googlecode.com">http://kditor.googlecode.com</a></div>
+</div>
+</center>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1977064-3");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

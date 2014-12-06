@@ -1,0 +1,646 @@
+<html>
+
+<head>
+<title>Kannada Editor</title>
+
+<!-- For English to Kannada Script Conversion -->
+<script language="JavaScript">
+
+	var vowels = new Array();
+	var consonants = new Array();
+
+	var useKannadaDigits = false;
+
+	// Sets the Input Style
+	function setInputStyle(inputStyle)
+	{
+		if (inputStyle == 'classic')
+		{
+			vowels = {
+				'A' : new Array(0x0C86, 0x0CBE),
+				'aa': new Array(0x0C86, 0x0CBE),
+				'ai': new Array(0x0C90, 0x0CC8),
+				'au': new Array(0x0C94, 0x0CCC),
+				'a' : new Array(0x0C85, 0     ),
+				'I' : new Array(0x0C88, 0x0CC0),
+				'ii': new Array(0x0C88, 0x0CC0),
+				'i' : new Array(0x0C87, 0x0CBF),
+				'U' : new Array(0x0C8A, 0x0CC2),
+				'uu': new Array(0x0C8A, 0x0CC2),
+				'u' : new Array(0x0C89, 0x0CC1),
+				'R' : new Array(0x0C8B, 0x0CC3),
+				'E' : new Array(0x0C8F, 0x0CC7),
+				'ee': new Array(0x0C8F, 0x0CC7),
+				'e' : new Array(0x0C8E, 0x0CC6),
+				'O' : new Array(0x0C93, 0x0CCB),
+				'oo': new Array(0x0C93, 0x0CCB),
+				'o' : new Array(0x0C92, 0x0CCA)};
+
+			consonants = {
+				'gz': 0x0C99,
+				'k' : 0x0C95,
+				'K' : 0x0C96,
+				'g' : 0x0C97,
+				'G' : 0x0C98,
+				'jz': 0x0C9E,
+				'ch': 0x0C9A,
+				'Ch': 0x0C9B,
+				'c' : 0x0C9A,
+				'C' : 0x0C9B,
+				'j' : 0x0C9C,
+				'J' : 0x0C9D,
+				'n' : 0x0CA8,
+				'th': 0x0CA4,
+				'Th': 0x0CA5,
+				'dh': 0x0CA6,
+				'Dh': 0x0CA7,
+				'N' : 0x0CA3,
+				't' : 0x0C9F,
+				'T' : 0x0CA0,
+				'd' : 0x0CA1,
+				'D' : 0x0CA2,
+				'm' : 0x0CAE,
+				'M' : 0x0CAE,
+				'p' : 0x0CAA,
+				'P' : 0x0CAB,
+				'b' : 0x0CAC,
+				'B' : 0x0CAD,
+				'y' : 0x0CAF,
+				'Y' : 0x0CAF,
+				'r' : 0x0CB0,
+				'l' : 0x0CB2,
+				'v' : 0x0CB5,
+				'sh': 0x0CB6,
+				'Sh': 0x0CB7,
+				's' : 0x0CB8,
+				'S' : 0x0CB8,
+				'h' : 0x0CB9,
+				'H' : 0x0CB9,
+				'L' : 0x0CB3};
+		}
+		else if (inputStyle == 'baraha')
+		{
+			vowels = {
+				'A' : new Array(0x0C86, 0x0CBE),
+				'aa': new Array(0x0C86, 0x0CBE),
+				'ai': new Array(0x0C90, 0x0CC8),
+				'au': new Array(0x0C94, 0x0CCC),
+				'a' : new Array(0x0C85, 0     ),
+				'I' : new Array(0x0C88, 0x0CC0),
+				'i' : new Array(0x0C87, 0x0CBF),
+				'U' : new Array(0x0C8A, 0x0CC2),
+				'u' : new Array(0x0C89, 0x0CC1),
+				'E' : new Array(0x0C8F, 0x0CC7),
+				'ee': new Array(0x0C88, 0x0CC0),
+				'e' : new Array(0x0C8E, 0x0CC6),
+				'O' : new Array(0x0C93, 0x0CCB),
+				'oo': new Array(0x0C8A, 0x0CC2),
+				'ou': new Array(0x0C94, 0x0CCC),
+				'o' : new Array(0x0C92, 0x0CCA),
+				'Ru': new Array(0x0C8B, 0x0CC3),
+				'RU': new Array(0x0CE0, 0x0CC4)};
+
+			consonants ={
+				'kh': 0x0C96,
+				'k' : 0x0C95,
+				'K' : 0x0C96,
+				'gh': 0x0C98,
+				'g' : 0x0C97,
+				'G' : 0x0C98,
+				'ch': 0x0C9A,
+				'c' : 0x0C9A,
+				'Ch': 0x0C9B,
+				'C' : 0x0C9B,
+				'jh': 0x0C9D,
+				'j' : 0x0C9C,
+				'J' : 0x0C9D,
+				'Th': 0x0CA0,
+				'T' : 0x0C9F,
+				'Dh': 0x0CA2,
+				'D' : 0x0CA1,
+				'N' : 0x0CA3,
+				'th': 0x0CA5,
+				't' : 0x0CA4,
+				'dh': 0x0CA7,
+				'd' : 0x0CA6,
+				'n' : 0x0CA8,
+				'ph': 0x0CAB,
+				'p' : 0x0CAA,
+				'P' : 0x0CAB,
+				'bh': 0x0CAD,
+				'b' : 0x0CAC,
+				'B' : 0x0CAD,
+				'm' : 0x0CAE,
+				'y' : 0x0CAF,
+				'Y' : 0x0CAF,
+				'rx': 0x0CB1,
+				'r' : 0x0CB0,
+				'R' : 0x0CB0,
+				'l' : 0x0CB2,
+				'v' : 0x0CB5,
+				'w' : 0x0CB5,
+				'sh': 0x0CB6,
+				's' : 0x0CB8,
+				'Sh': 0x0CB7,
+				'S' : 0x0CB6,
+				'h' : 0x0CB9,
+				'Lx': 0x0CDE,
+				'L' : 0x0CB3,
+				'~g': 0x0C99,
+				'~j': 0x0C9E,
+				'~h': 0x0CB9};
+		}
+	}
+
+	// Finds out if the specified character is numeric
+	function isNumeric(ch)
+	{
+		if (ch.charCodeAt(0) >= 48 && ch.charCodeAt(0) <= 57)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
+	// Returns the Unicode of the specified digit
+	function kannadaDigit(ch)
+	{
+		var keyCode = ch.charCodeAt(0);
+		return unescape("%u0" + (0x0CE6 + keyCode - 48).toString(16));
+	}
+
+	// Formats the specified unicode
+	function kannadaLetter(co)
+	{
+		return unescape("%u0" + co.toString(16));
+	}
+
+	// Returns the Unicode of Kannada Anuswara
+	function kannadaAnuswara()
+	{
+		return unescape("%u0C82");
+	}
+
+	// Returns the Unicode of Kannada Visarga
+	function kannadaVisarga()
+	{
+		return unescape("%u0C83");
+	}
+
+	// Returns the Unicode of Kannada Arka
+	function kannadaArka()
+	{
+		return unescape("%u0CCD");
+	}
+
+	// Converts the specified text from english script to kannada script
+	function convert(text)
+	{
+		var converted = "";
+		
+		// States
+		// 0 - New Syllable
+		// 1 - Independent Vowel
+		// 2 - Consonant
+		// 3 - Consonant + Vowel
+
+		var state = 0;
+		
+		for (var index = 0; index < text.length; index++)
+		{
+			var ch = text.charAt(index);
+			var chPlus = ch + text.charAt(index + 1);
+			
+			// Look for numeric
+			if (useKannadaDigits && isNumeric(ch))
+			{
+				converted += kannadaDigit(ch);
+
+				state = 0;
+				continue;
+			}
+
+			// Look for Vowel
+			
+			if ((vs = vowels[chPlus]) == null)
+				vs = vowels[ch];
+			else
+				index++;
+				
+			if (vs != null)
+			{
+				if (state == 0 || state == 1 || state == 3)
+				{
+					converted += kannadaLetter(vs[0]);
+					state = 1;
+				}
+				else if (state == 2)
+				{
+					converted = converted.substring(0, converted.length - 1);
+
+					if (vs[1] != 0)
+					{
+						converted += kannadaLetter(vs[1]);
+					}
+
+					state = 3;
+				}
+
+				continue;
+			}
+			
+			// Look for Anuswara or Visarga
+			if (state == 1 || state == 3)
+			{
+				if (ch == 'M')
+				{
+					converted += kannadaAnuswara();
+					
+					state = 0;
+					continue;
+				}
+				else if (ch == 'H')
+				{
+					converted += kannadaVisarga();
+					
+					state = 0;
+					continue;
+				}
+			}
+
+			// Look for Consonant
+			
+			if ((cs = consonants[chPlus]) == null)
+				cs = consonants[ch];
+			else
+				index++;
+			
+			if (cs != null)
+			{
+				converted += kannadaLetter(cs) + kannadaArka();
+
+				state = 2;
+				continue;
+			}
+
+			// Anything else
+			converted += ch;
+			state = 0;
+		}
+		
+		return converted;
+	}
+
+	// Converts the kannada text to unicode
+	function convertToUnicode(text)
+	{
+		var converted = "";
+		
+		// Generate Unicode for HTML
+		for (index = 0; index < text.length; index++)
+		{
+			var charCode = text.charCodeAt(index);
+
+			if (charCode >= 3072 && charCode < 3328)
+			{
+				converted += "&#" + charCode + ";";
+			}
+			else
+			{
+				converted += text.charAt(index);
+			}
+		}
+
+		return converted;
+	}
+	
+</script>
+
+<!-- The editor-dependent conversion logic -->
+<script>
+
+	var conversionTimer;
+	
+	// Converts all the text from english script to kannada script
+	function convertAll()
+	{
+		kannada.value = convert(english.value);
+		unicode.value = convertToUnicode(kannada.value);
+	}
+
+	// Converts the text from english script to kannada script as necessary, also generating the equivalent unicode
+	function convertRequired(en, kn, un)
+	{
+		window.clearTimeout(conversionTimer);
+		conversionTimer = window.setTimeout(convertAll, 500);
+	}
+
+</script>
+
+<!-- For Page Visuals -->
+<script>
+
+	var showUn = true;
+	var showInstr = false;
+
+	function isIE()
+	{
+		if (-1 != navigator.userAgent.indexOf("MSIE"))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isFirefox()
+	{
+		if (-1 != navigator.userAgent.indexOf("Firefox"))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isOpera()
+	{
+		if (-1 != navigator.userAgent.indexOf("Opera"))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function isSafari()
+	{
+		if (-1 != navigator.userAgent.indexOf("Safari"))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	function selectAll(element)
+	{
+		if (!showInstr)
+		{
+			if (element.setSelectionRange)
+			{
+				element.setSelectionRange(0, element.value.length);
+			}
+			else if (element.createTextRange)
+			{
+				var range = element.createTextRange();
+				range.moveStart("character", 0);
+				range.moveEnd("character", element.value.length);
+				range.select();
+			}
+		}
+	}
+
+	function showInstructions()
+	{
+		if (!showInstr)
+		{
+			english.style.color = "gray";
+			kannada.style.color = "gray";
+			unicode.style.color = "gray";
+
+			english.value = "Click here to type your text";
+			kannada.value = "Kannada text appears here";
+			unicode.value = "Unicode appears here";
+
+ 			document.getElementById("tdck").disabled = true;
+ 			document.getElementById("tdcu").disabled = true;
+ 				
+ 			showInstr = true;
+		}
+	}
+
+	function hideInstructions()
+	{
+		if (showInstr)
+		{
+			english.style.color = "black";
+			kannada.style.color = "black";
+			unicode.style.color = "black";
+
+			english.value = "";
+			kannada.value = "";
+			unicode.value = "";
+
+			document.getElementById("tdck").disabled = false;
+			document.getElementById("tdcu").disabled = false;
+				
+			showInstr = false;
+		}
+	}
+
+	function toggleUnicode()
+	{
+		if (showUn) //hide
+		{
+			document.getElementById("tdkn").style.width = "100%";
+			document.getElementById("tdun").style.display = "none";
+			document.getElementById("btnUn").innerHTML = "Show Unicode &lt;&lt;";
+
+			document.getElementById("tdcu").style.display = "none";
+			showUn = false;
+		}
+		else //show
+		{
+			document.getElementById("tdkn").style.width = "60%";
+			document.getElementById("tdun").style.display = "inline";
+			document.getElementById("tdcu").style.display = "inline";
+
+			document.getElementById("btnUn").innerHTML = "Hide Unicode &gt;&gt;";
+			showUn = true;
+		}
+	}
+
+	function registerListeners()
+	{
+		showInstructions();
+		
+		english.onblur=function(){ if (english.value == "") showInstructions();};
+		english.onfocus=function(){ hideInstructions();};
+
+		if (isIE())
+		{
+			english.onkeyup=function(){ if (!showInstr) convertRequired(english, kannada, unicode);};
+
+			document.getElementById("btnUn").style.display = "inline";
+			toggleUnicode();
+		}
+		else if (isFirefox() || isSafari())
+		{
+			english.onkeyup=function(){ if (!showInstr) convertRequired(english, kannada, unicode);};
+
+			document.getElementById("btnUn").style.display = "inline";
+			toggleUnicode();
+		}
+		else if (isOpera())
+		{
+			english.onkeyup=function(){ if (!showInstr) convertRequired(english, kannada, unicode);};
+
+			document.getElementById("tdcu").style.display = "inline";
+		}
+			
+		document.getElementById('inputstyle-baraha').checked = true;
+		setInputStyle('baraha');
+	}
+
+	function updateInputStyle()
+	{
+		if (document.getElementById('inputstyle-classic').checked)
+		{
+			setInputStyle('classic');
+		}
+		else if (document.getElementById('inputstyle-baraha').checked)
+		{
+			setInputStyle('baraha');
+		}
+
+		if (!showInstr)
+		{
+			convertAll(english, kannada, unicode);
+		}
+	}
+
+	function updateConvertNumbers()
+	{
+		if (document.getElementById('convert-numbers').checked)
+		{
+			useKannadaDigits = true;
+		}
+		else
+		{
+			useKannadaDigits = false;
+		}
+
+		if (!showInstr)
+		{
+			convertAll(english, kannada, unicode);
+		}
+	}
+
+</script>
+
+</head>
+
+<body onload="registerListeners();">
+
+<table height="100%" width="100%">
+	<tr>
+		<td width="100%" height="50%">
+		<table width="100%" height="100%">
+			<tr>
+				<td id="tdkn" height="100%" style="width: 60%"><textarea
+					id="kannada" name="kannada" style="width: 100%; height: 100%"
+					readonly rows="1" cols="20"></textarea></td>
+				<td id="tdun" height="100%" style="width: 40%;"><textarea
+					id="unicode" name="unicode" style="width: 100%; height: 100%"
+					readonly rows="1" cols="20"></textarea></td>
+			</tr>
+			<tr>
+				<td>
+				<button id="tdck" style="width: 100%; height: 50px;" disabled="disabled"
+					onclick="selectAll(kannada)">Select All</button>
+				</td>
+				<td>
+				<button id="tdcu" style="width: 100%; height: 50px; display: none"
+					disabled="disabled" onclick="selectAll(unicode)">Select All</button>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%" height="40%">
+		<table width="100%" height="100%">
+			<tr>
+				<td id="tden" width="80%" height="100%"><textarea id="english"
+					name="english" style="width: 100%; height: 100%" rows="1" cols="20"></textarea>
+				</td>
+				<td align="right" width="100%" height="100%">
+				<table width="100%" height="100%">
+					<tr>
+						<td valign="top">
+						<button id="btnUn"
+							style="width: 100%; height: 50px; display: none;"
+							onclick="toggleUnicode()">Hide Unicode &gt;&gt;</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<table>
+							<tr>
+								<td><input type="checkbox" id="convert-numbers"
+									name="convertNumbers" value="yes"
+									onclick="updateConvertNumbers();"><span
+									style="font-family: Arial; font-size: 12px;">Use Kannada
+								Digits</span></td>
+							</tr>
+							<tr>
+								<td><span
+									style="font-family: Arial; font-size: 14px; font-weight: bold;">
+								Input Style: </span></td>
+							</tr>
+							<tr>
+								<td><input type="radio" id="inputstyle-baraha"
+									name="inputstyle" value="baraha" onclick="updateInputStyle();"><span
+									style="font-family: Arial; font-size: 12px;">Baraha</span></td>
+							</tr>
+							<tr>
+								<td><input type="radio" id="inputstyle-classic"
+									name="inputstyle" value="classic" onclick="updateInputStyle();"><span
+									style="font-family: Arial; font-size: 12px;">Classic</span></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom">
+						<button style="width: 100%; height: 50px;"
+							onclick="showInstructions()">Clear</button>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="100%">
+		<table cellspacing="0" cellpadding="0" width="100%">
+			<tr>
+				<td><a href="mailto:jayaramanettar@gmail.com"> <span
+					style="FONT-SIZE: 12px; COLOR: black; FONT-STYLE: italic; FONT-FAMILY: Arial; TEXT-DECORATION: none">
+				By Jayarama Nettar (jayarama.nettar@gmail.com) </span></a></td>
+				<td align="right"
+					style="FONT-SIZE: 14px; COLOR: black; FONT-FAMILY: Arial;">For
+				inline kannada editor, visit: <a href="http://www.kditor.com">http://www.kditor.com</a></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1977064-3");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+
+</html>

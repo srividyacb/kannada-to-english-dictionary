@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache-entry>
+	<generated-type-hash class="com.kditor.client.TransliterationConstants_" hash="9D0CDA3E4D4DE3DDEE0B279F1AB25412"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.FormPanelImpl" out="com.google.gwt.user.client.ui.impl.FormPanelImplIE6"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.RichTextAreaImpl" out="com.google.gwt.user.client.ui.impl.RichTextAreaImplIE6"/>
+	<rebind-decision in="com.kditor.client.TransliterationConstants" out="com.kditor.client.TransliterationConstants_"/>
+	<rebind-decision in="com.kditor.client.Kditor" out="com.kditor.client.Kditor"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.TextBoxImpl" out="com.google.gwt.user.client.ui.impl.TextBoxImplIE6"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.DOMImpl" out="com.google.gwt.user.client.impl.DOMImplIE6"/>
+	<rebind-decision in="com.kditor.client.helper.impl.TransliterationHelperImpl" out="com.kditor.client.helper.impl.TransliterationHelperImplIE"/>
+	<rebind-decision in="com.google.gwt.user.client.impl.HistoryImpl" out="com.google.gwt.user.client.impl.HistoryImplIE6"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.ListBox.Impl" out="com.google.gwt.user.client.ui.ListBox.Impl"/>
+	<rebind-decision in="com.kditor.client.helper.impl.ElementUtilImpl" out="com.kditor.client.helper.impl.ElementUtilImplIE"/>
+	<rebind-decision in="com.kditor.client.editor.impl.TransliterationEditorTextBoxBaseImpl" out="com.kditor.client.editor.impl.TransliterationEditorTextBoxBaseImplIE"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.FocusImpl" out="com.google.gwt.user.client.ui.impl.FocusImplIE6"/>
+	<rebind-decision in="com.google.gwt.user.client.ui.impl.PopupImpl" out="com.google.gwt.user.client.ui.impl.PopupImplIE6"/>
+	<rebind-decision in="com.kditor.client.editor.impl.TransliterationEditorIframeImpl" out="com.kditor.client.editor.impl.TransliterationEditorIframeImplIE"/>
+</cache-entry>
